@@ -1,0 +1,1187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCL xmlns="http://www.iec.ch/61850/2003/SCL" xsi:schemaLocation="http://www.iec.ch/61850/2003/SCL SCL.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2007" revision="B" release="4">
+    <Header id="Protection and Automation Test Lab" nameStructure="IEDName" revision="R0.0" toolID="" version="V1.0"/>
+    <Substation name="XAT" desc="Protection and Automation Test Lab" sxy:dir="vertical"
+        xmlns:sxy="http://www.iec.ch/61850/2003/SCLcoordinates">
+        <Text>Protection and Automation Test Lab</Text>
+        <VoltageLevel name="220kV" desc="220 kV" nomFreq="50" numPhases="3">
+            <Voltage unit="V" multiplier="k">220</Voltage>
+            <Bay name="T3" desc="T1" sxy:dir="vertical" sxy:x="2" sxy:y="16">
+                <PowerTransformer name="T3" desc="T3" type="PTR">
+                    <TransformerWinding name="W1" type="PTW">
+                        <Terminal name="T1" connectivityNode="XAT/V220/T3/L1" cNodeName="L1"/>
+                        <NeutralPoint name="N" connectivityNode="XAT/V220/T3/L0" cNodeName="L1"/>
+                    </TransformerWinding>
+                    <TransformerWinding name="W2" type="PTW">
+                        <Terminal name="T1" connectivityNode="XAT/V33/T3/L1" cNodeName="L1"/>
+                    </TransformerWinding>
+                    <TransformerWinding name="W3" type="PTW">
+                        <Terminal name="T1" connectivityNode="XAT/V33/T3/L1" cNodeName="L1"/>
+                    </TransformerWinding>
+                </PowerTransformer>
+            </Bay>
+            <Bay name="Z4" desc="T1" sxy:dir="vertical" sxy:x="2" sxy:y="16">
+                <PowerTransformer name="Z4" desc="T3" type="PTR">
+                    <TransformerWinding name="W1" type="PTW">
+                        <Terminal name="T1" connectivityNode="XAT/V220/Z4/L1" cNodeName="L1"/>
+                        <NeutralPoint name="N" connectivityNode="XAT/V220/Z4/L0" cNodeName="L1"/>
+                    </TransformerWinding>
+                    <TransformerWinding name="W2" type="PTW">
+                        <Terminal name="T1" connectivityNode="XAT/V33/Z4/L1" cNodeName="L1"/>
+                    </TransformerWinding>
+                </PowerTransformer>
+            </Bay>
+            <Bay name="T1" desc="T1" sxy:dir="vertical" sxy:x="2" sxy:y="16">
+                <PowerTransformer name="T1" desc="T1" type="PTR">
+                    <TransformerWinding name="W1" type="PTW">
+                        <Terminal name="T1" connectivityNode="XAT/V220/B240/L1" cNodeName="L1"/>
+                        <NeutralPoint name="N" connectivityNode="XAT/V220/B240/L0" cNodeName="L1"/>
+                    </TransformerWinding>
+                    <TransformerWinding name="W2" type="PTW">
+                        <Terminal name="T1" connectivityNode="XAT/V33/B2200/L1" cNodeName="L1"/>
+                    </TransformerWinding>
+                    <EqFunction name="Transformer_Protection">
+                        <EqSubFunction name="Differential">
+                            <LNode ldInst="Dif" prefix="TR_" lnClass="PDIF" lnInst="1">
+                                <Text>Dif</Text>
+                            </LNode>
+                            <LNode ldInst="HV_Side" prefix="REF_" lnClass="PDIF" lnInst="1">
+                                <Text>Dif(EF)HV</Text>
+                            </LNode>
+                            <LNode ldInst="LV_Side" prefix="REF_" lnClass="PDIF" lnInst="1">
+                                <Text>Dif(EF)LV</Text>
+                            </LNode>
+                        </EqSubFunction>
+                        <EqSubFunction name="Mechanical">
+                            <LNode ldInst="Buch_Main" prefix="EXT_" lnClass="PSCH" lnInst="1">
+                                <Text>Buch(Main)</Text>
+                            </LNode>
+                            <LNode ldInst="Buch_Tch" prefix="EXT_" lnClass="PSCH" lnInst="1">
+                                <Text>Buch(Tch)</Text>
+                            </LNode>
+                            <LNode ldInst="PrRel_Main" prefix="EXT_" lnClass="PSCH" lnInst="1">
+                                <Text>PrRel(Main)</Text>
+                            </LNode>
+                            <LNode ldInst="PrRel_Tch" prefix="EXT_" lnClass="PSCH" lnInst="1">
+                                <Text>PrRel(Tch)</Text>
+                            </LNode>
+                        </EqSubFunction>
+                        <EqSubFunction name="Temperature">
+                            <LNode ldInst="Temp_Main" prefix="EXT_" lnClass="PSCH" lnInst="1">
+                                <Text>Temp(Main)</Text>
+                            </LNode>
+                        </EqSubFunction>
+                        <EqSubFunction name="Overcurrent">
+                            <LNode ldInst="OC_IT_LV" prefix="IT_" lnClass="PTOC" lnInst="1">
+                                <Text>OC(IT)LV</Text>
+                            </LNode>
+                            <LNode ldInst="OC_DefT_LV" prefix="ID_" lnClass="PTOC" lnInst="1">
+                                <Text>OC(DefT)LV</Text>
+                            </LNode>
+                            <LNode ldInst="OC_DefT_LV" prefix="SOTF_" lnClass="PTOC" lnInst="1">
+                                <Text>OC(SOTF)LV</Text>
+                            </LNode>
+                        </EqSubFunction>
+                        <EqSubFunction name="Earth Fault">
+                            <LNode ldInst="EF_HV" prefix="ID_" lnClass="PTOC" lnInst="1">
+                                <Text>EF(DefT,Neut)HV</Text>
+                            </LNode>
+                            <LNode ldInst="EF_LV" prefix="ID_" lnClass="PTOC" lnInst="1">
+                                <Text>EF(DefT,Neut)LV</Text>
+                            </LNode>
+                            <LNode ldInst="EF_LV" prefix="ID_" lnClass="PTOC" lnInst="2">
+                                <Text>EF(Alarm)LV</Text>
+                            </LNode>
+                        </EqSubFunction>
+                        <EqSubFunction name="Distance">
+                            <LNode ldInst="DistLV" prefix="MHO_" lnClass="PDIS" lnInst="1">
+                                <Text>DistLV_Mho</Text>
+                            </LNode>
+                            <LNode ldInst="DistLV" prefix="QUAD_" lnClass="PDIS" lnInst="1">
+                                <Text>DistLV_Quad</Text>
+                            </LNode>
+                        </EqSubFunction>
+                        <EqSubFunction name="Underimpedance">
+                            <LNode ldInst="UImpLV" prefix="IMP_" lnClass="PDIS" lnInst="1">
+                                <Text>UImpLV</Text>
+                            </LNode>
+                        </EqSubFunction>
+                        <EqSubFunction name="Overload">
+                            <LNode ldInst="OL" prefix="" lnClass="PTTR" lnInst="1">
+                                <Text>OL(ET,NER)LV</Text>
+                            </LNode>
+                        </EqSubFunction>
+                    </EqFunction>
+                </PowerTransformer>
+            </Bay>
+            <Bay name="T2" desc="T2" sxy:dir="vertical" sxy:x="21" sxy:y="16">
+                <PowerTransformer name="T2" desc="T2" type="PTR">
+                    <TransformerWinding name="W1" type="PTW">
+                        <Terminal name="T1" connectivityNode="XAT/V220/B290/L1" cNodeName="L1"/>
+                        <NeutralPoint name="N" connectivityNode="XAT/V220/B290/L0" cNodeName="L1"/>
+                    </TransformerWinding>
+                    <TransformerWinding name="W2" type="PTW">
+                        <Terminal name="T1" connectivityNode="XAT/V33/B2100/L1" cNodeName="L1"/>
+                    </TransformerWinding>
+                    <EqFunction name="Transformer_Protection">
+                        <EqSubFunction name="Differential">
+                            <LNode ldInst="Dif" prefix="TR_" lnClass="PDIF" lnInst="1">
+                                <Text>Dif</Text>
+                            </LNode>
+                            <LNode ldInst="HV_Side" prefix="REF_" lnClass="PDIF" lnInst="1">
+                                <Text>Dif(EF)HV</Text>
+                            </LNode>
+                            <LNode ldInst="LV_Side" prefix="REF_" lnClass="PDIF" lnInst="1">
+                                <Text>Dif(EF)LV</Text>
+                            </LNode>
+                        </EqSubFunction>
+                        <EqSubFunction name="Mechanical">
+                            <LNode ldInst="Buch_Main" prefix="EXT_" lnClass="PSCH" lnInst="1">
+                                <Text>Buch(Main)</Text>
+                            </LNode>
+                            <LNode ldInst="Buch_Tch" prefix="EXT_" lnClass="PSCH" lnInst="1">
+                                <Text>Buch(Tch)</Text>
+                            </LNode>
+                            <LNode ldInst="PrRel_Main" prefix="EXT_" lnClass="PSCH" lnInst="1">
+                                <Text>PrRel(Main)</Text>
+                            </LNode>
+                            <LNode ldInst="PrRel_Tch" prefix="EXT_" lnClass="PSCH" lnInst="1">
+                                <Text>PrRel(Tch)</Text>
+                            </LNode>
+                        </EqSubFunction>
+                        <EqSubFunction name="Temperature">
+                            <LNode ldInst="Temp_Main" prefix="EXT_" lnClass="PSCH" lnInst="1">
+                                <Text>Temp(Main)</Text>
+                            </LNode>
+                        </EqSubFunction>
+                        <EqSubFunction name="Overcurrent">
+                            <LNode ldInst="OC_IT_LV" prefix="IT_" lnClass="PTOC" lnInst="1">
+                                <Text>OC(IT)LV</Text>
+                            </LNode>
+                            <LNode ldInst="OC_DefT_LV" prefix="ID_" lnClass="PTOC" lnInst="1">
+                                <Text>OC(DefT)LV</Text>
+                            </LNode>
+                            <LNode ldInst="OC_DefT_LV" prefix="SOTF_" lnClass="PTOC" lnInst="1">
+                                <Text>OC(SOTF)LV</Text>
+                            </LNode>
+                        </EqSubFunction>
+                        <EqSubFunction name="Earth Fault">
+                            <LNode ldInst="EF_HV" prefix="ID_" lnClass="PTOC" lnInst="1">
+                                <Text>EF(DefT,Neut)HV</Text>
+                            </LNode>
+                            <LNode ldInst="EF_LV" prefix="ID_" lnClass="PTOC" lnInst="1">
+                                <Text>EF(DefT,Neut)LV</Text>
+                            </LNode>
+                            <LNode ldInst="EF_LV" prefix="ID_" lnClass="PTOC" lnInst="2">
+                                <Text>EF(Alarm)LV</Text>
+                            </LNode>
+                        </EqSubFunction>
+                        <EqSubFunction name="Distance">
+                            <LNode ldInst="DistLV" prefix="MHO_" lnClass="PDIS" lnInst="1">
+                                <Text>DistLV_Mho</Text>
+                            </LNode>
+                            <LNode ldInst="DistLV" prefix="QUAD_" lnClass="PDIS" lnInst="1">
+                                <Text>DistLV_Quad</Text>
+                            </LNode>
+                        </EqSubFunction>
+                        <EqSubFunction name="Underimpedance">
+                            <LNode ldInst="UImpLV" prefix="IMP_" lnClass="PDIS" lnInst="1">
+                                <Text>UImpLV</Text>
+                            </LNode>
+                        </EqSubFunction>
+                        <EqSubFunction name="Overload">
+                            <LNode ldInst="OL" prefix="" lnClass="PTTR" lnInst="1">
+                                <Text>OL(ET,NER)LV</Text>
+                            </LNode>
+                        </EqSubFunction>
+                    </EqFunction>
+                </PowerTransformer>
+            </Bay>
+            <Bay name="B220" desc="CVT227" sxy:dir="vertical" sxy:x="0" sxy:y="10">
+                <ConductingEquipment name="CVT227" type="VTR" sxy:dir="vertical" sxy:x="1" sxy:y="0">
+                    <Terminal name="T1" connectivityNode="XAT/V220/Bus_A/L1" substationName="XAT" voltageLevelName="V220" bayName="Bus_A" cNodeName="L1"/>
+                    <SubEquipment name="A" phase="A">
+                        <LNode ldInst="CVT227" lnClass="TVTR" lnInst="1"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_CVT227" lnClass="TVTR" lnInst="1"/>
+                                <LNode ldInst="Bus_CVT227" lnClass="TVTR" lnInst="1"/>
+                                <LNode ldInst="Line_CVT227" lnClass="TVTR" lnInst="1"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="B" phase="B">
+                        <LNode ldInst="CVT227" lnClass="TVTR" lnInst="2"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_CVT227" lnClass="TVTR" lnInst="2"/>
+                                <LNode ldInst="Bus_CVT227" lnClass="TVTR" lnInst="2"/>
+                                <LNode ldInst="Line_CVT227" lnClass="TVTR" lnInst="2"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="C" phase="C">
+                        <LNode ldInst="CVT227" lnClass="TVTR" lnInst="3"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_CVT227" lnClass="TVTR" lnInst="3"/>
+                                <LNode ldInst="Bus_CVT227" lnClass="TVTR" lnInst="3"/>
+                                <LNode ldInst="Line_CVT227" lnClass="TVTR" lnInst="3"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                </ConductingEquipment>
+                <ConductingEquipment name="ES220" type="DIS" sxy:dir="vertical" sxy:x="0" sxy:y="0">
+                    <LNode ldInst="ES220" lnClass="XSWI" lnInst="1"/>
+                    <LNode ldInst="ES220" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="ES220" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V220/Bus_A/L1" substationName="XAT" voltageLevelName="V220" bayName="Bus_A" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B220/grounded" bayName="B220" cNodeName="grounded"/>
+                </ConductingEquipment>
+                <ConnectivityNode name="L1" pathName="XAT/V220/B220/grounded"/>
+            </Bay>
+            <Bay name="B230" desc="SOM-XAT 1" sxy:dir="vertical" sxy:x="2">
+                <ConductingEquipment name="SOM_XAT_1_Cct" desc="SOM-XAT 1" type="IFL" sxy:dir="vertical" sxy:y="4">
+                    <Terminal name="T1" connectivityNode="XAT/V220/B230/L1" substationName="XAT" voltageLevelName="V220" bayName="B230" cNodeName="L1"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="ES239" type="DIS" sxy:dir="horizontal" sxy:x="1" sxy:y="5">
+                    <LNode ldInst="ES239" lnClass="XSWI" lnInst="1"/>
+                    <LNode ldInst="ES239" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="ES239" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V220/B230/L1" substationName="XAT" voltageLevelName="V220" bayName="B230" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B230/grounded" substationName="XAT" voltageLevelName="V220" bayName="B230" cNodeName="grounded"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="CT232" type="CTR" sxy:dir="vertical" sxy:y="6">
+                    <Terminal name="T1" connectivityNode="XAT/V220/B230/L1" substationName="XAT" voltageLevelName="V220" bayName="B230" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B230/L12" substationName="XAT" voltageLevelName="V220" bayName="B230" cNodeName="L12"/>
+                    <SubEquipment name="A" phase="A">
+                        <LNode ldInst="CT232" lnClass="TCTR" lnInst="1"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT232" lnClass="TCTR" lnInst="1"/>
+                                <LNode ldInst="Bay_CT232" lnClass="TCTR" lnInst="1"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="B" phase="B">
+                        <LNode ldInst="CT232" lnClass="TCTR" lnInst="2"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT232" lnClass="TCTR" lnInst="2"/>
+                                <LNode ldInst="Bay_CT232" lnClass="TCTR" lnInst="2"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="C" phase="C">
+                        <LNode ldInst="CT232" lnClass="TCTR" lnInst="3"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT232" lnClass="TCTR" lnInst="3"/>
+                                <LNode ldInst="Bay_CT232" lnClass="TCTR" lnInst="3"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="N" phase="N">
+                        <LNode ldInst="CT232" lnClass="TCTR" lnInst="4"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT232" lnClass="TCTR" lnInst="4"/>
+                                <LNode ldInst="Bay_CT232" lnClass="TCTR" lnInst="4"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                </ConductingEquipment>
+                <ConductingEquipment name="DCB232" type="CBR" sxy:dir="vertical" sxy:y="8">
+                    <LNode ldInst="DCB232" lnClass="XCBR" lnInst="1"/>
+                    <LNode ldInst="DCB232" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="DCB232" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V220/B230/L12" substationName="XAT" voltageLevelName="V220" bayName="B230" cNodeName="L12"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B230/L13" substationName="XAT" voltageLevelName="V220" bayName="B230" cNodeName="L13"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="DCB232B" type="DIS" sxy:dir="vertical" sxy:y="9">
+                    <Terminal name="T1" connectivityNode="XAT/V220/Bus_A/L1" substationName="XAT" voltageLevelName="V220" bayName="Bus_A" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B230/L13" substationName="XAT" voltageLevelName="V220" bayName="B230" cNodeName="L13"/>
+                </ConductingEquipment>
+                <ConnectivityNode name="grounded" pathName="XAT/V220/B230/grounded"/>
+                <ConnectivityNode name="L1" pathName="XAT/V220/B230/L1"/>
+                <ConnectivityNode name="L12" pathName="XAT/V220/B230/L12"/>
+                <ConnectivityNode name="L13" pathName="XAT/V220/B230/L13"/>
+                <Function name="Line_Protection">
+                    <SubFunction name="Line Differential">
+                        <LNode ldInst="LDif" prefix="I_" lnClass="PDIF" lnInst="1">
+                            <Text>LDif</Text>
+                        </LNode>
+                    </SubFunction>
+                    <SubFunction name="Distance">
+                        <LNode ldInst="Dist" prefix="MHO_" lnClass="PDIS" lnInst="1">
+                            <Text>Dist_Zone_1_Mho</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="MHO_" lnClass="PDIS" lnInst="2">
+                            <Text>Dist_Zone_2_Mho</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="MHO_" lnClass="PDIS" lnInst="3">
+                            <Text>Dist_Zone_3_Mho</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="MHO_" lnClass="PDIS" lnInst="4">
+                            <Text>Dist_Zone_4_Mho</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="MHO_" lnClass="PDIS" lnInst="5">
+                            <Text>Dist_Zone_5_Mho</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="QUAD_" lnClass="PDIS" lnInst="1">
+                            <Text>Dist_Zone_1_Quad</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="QUAD_" lnClass="PDIS" lnInst="2">
+                            <Text>Dist_Zone_2_Quad</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="QUAD_" lnClass="PDIS" lnInst="3">
+                            <Text>Dist_Zone_3_Quad</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="QUAD_" lnClass="PDIS" lnInst="4">
+                            <Text>Dist_Zone_4_Quad</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="QUAD_" lnClass="PDIS" lnInst="5">
+                            <Text>Dist_Zone_5_Quad</Text>
+                        </LNode>
+                    </SubFunction>
+                    <SubFunction name="Directional Earth Fault">
+                        <LNode ldInst="DEF" prefix="DND_" lnClass="PTOC" lnInst="1">
+                            <Text>DEF</Text>
+                        </LNode>
+                    </SubFunction>
+                    <SubFunction name="Negative Sequence">
+                        <LNode ldInst="NegSeq" prefix="DI2_" lnClass="PTOC" lnInst="1">
+                            <Text>NegSeq(Direc,DefT)</Text>
+                        </LNode>
+                    </SubFunction>
+                    <SubFunction name="Overcurrent">
+                        <LNode ldInst="OC" prefix="SOTF_" lnClass="PIOC" lnInst="1">
+                            <Text>OC(SOTF)</Text>
+                        </LNode>
+                    </SubFunction>
+                    <SubFunction name="Overvoltage">
+                        <LNode ldInst="OV" prefix="" lnClass="PTOV" lnInst="1">
+                            <Text>OV(DefT)</Text>
+                        </LNode>
+                        <LNode ldInst="OV" prefix="ResV_" lnClass="PTOV" lnInst="1">
+                            <Text>ResV(DefT)</Text>
+                        </LNode>
+                    </SubFunction>
+                    <SubFunction name="Intertrips">
+                        <LNode ldInst="ITrip" prefix="EXT_" lnClass="PSCH" lnInst="1">
+                            <Text>ITrip(Rec)</Text>
+                        </LNode>
+                    </SubFunction>
+                </Function>
+                <Function name="CB_Fail">
+                    <LNode ldInst="DCB232" prefix="" lnClass="RBRF" lnInst="1">
+                        <Text>OC(CBFail)_Bay</Text>
+                    </LNode>
+                    <LNode ldInst="DCB232" prefix="Inh_" lnClass="RBRF" lnInst="1">
+                        <Text>OC(CBFail)_Bus</Text>
+                    </LNode>
+                </Function>
+            </Bay>
+            <Bay name="B240" desc="T1" sxy:dir="vertical" sxy:x="2">
+                <ConductingEquipment name="NCT1" type="CTR" sxy:dir="horizontal" sxy:x="-1" sxy:y="15">
+                    <Terminal name="T1" connectivityNode="XAT/V220/B240/L0" substationName="XAT" voltageLevelName="V220" bayName="B240" cNodeName="L0"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B240/grounded" substationName="XAT" voltageLevelName="V220" bayName="B240" cNodeName="grounded"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="ES249" type="DIS" sxy:dir="horizontal" sxy:x="1" sxy:y="15">
+                    <LNode ldInst="ES249" lnClass="XSWI" lnInst="1"/>
+                    <LNode ldInst="ES249" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="ES249" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V220/B240/L1" substationName="XAT" voltageLevelName="V220" bayName="B240" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B240/grounded" substationName="XAT" voltageLevelName="V220" bayName="B240" cNodeName="grounded"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="CT242" type="CTR" sxy:dir="vertical" sxy:y="15">
+                    <Terminal name="T1" connectivityNode="XAT/V220/B240/L1" substationName="XAT" voltageLevelName="V220" bayName="B240" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B240/L12" substationName="XAT" voltageLevelName="V220" bayName="B240" cNodeName="L12"/>
+                    <SubEquipment name="A" phase="A">
+                        <LNode ldInst="CT242" lnClass="TCTR" lnInst="1"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bay_CT242" lnClass="TCTR" lnInst="1"/>
+                                <LNode ldInst="Bus_CT242" lnClass="TCTR" lnInst="1"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="B" phase="B">
+                        <LNode ldInst="CT242" lnClass="TCTR" lnInst="2"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bay_CT242" lnClass="TCTR" lnInst="2"/>
+                                <LNode ldInst="Bus_CT242" lnClass="TCTR" lnInst="2"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="C" phase="C">
+                        <LNode ldInst="CT242" lnClass="TCTR" lnInst="3"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bay_CT242" lnClass="TCTR" lnInst="3"/>
+                                <LNode ldInst="Bus_CT242" lnClass="TCTR" lnInst="3"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="N" phase="N">
+                        <LNode ldInst="CT242" lnClass="TCTR" lnInst="4"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bay_CT242" lnClass="TCTR" lnInst="4"/>
+                                <LNode ldInst="Bus_CT242" lnClass="TCTR" lnInst="4"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                </ConductingEquipment>
+                <ConductingEquipment name="DCB242" type="CBR" sxy:dir="vertical" sxy:y="13">
+                    <LNode ldInst="DCB242" lnClass="XCBR" lnInst="1"/>
+                    <LNode ldInst="DCB242" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="DCB242" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V220/B240/L12" substationName="XAT" voltageLevelName="V220" bayName="B240" cNodeName="L12"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B240/L13" substationName="XAT" voltageLevelName="V220" bayName="B240" cNodeName="L13"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="DCB242B" type="DIS" sxy:dir="vertical" sxy:y="12">
+                    <Terminal name="T1" connectivityNode="XAT/V220/Bus_A/L1" substationName="XAT" voltageLevelName="V220" bayName="Bus_A" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B240/L13" substationName="XAT" voltageLevelName="V220" bayName="B240" cNodeName="L13"/>
+                </ConductingEquipment>
+                <ConnectivityNode name="grounded" pathName="XAT/V220/B240/grounded"/>
+                <ConnectivityNode name="L1" pathName="XAT/V220/B240/L1"/>
+                <ConnectivityNode name="L12" pathName="XAT/V220/B240/L12"/>
+                <ConnectivityNode name="L13" pathName="XAT/V220/B240/L13"/>
+                <Function name="CB_Fail">
+                    <LNode ldInst="DCB242" prefix="" lnClass="RBRF" lnInst="1">
+                        <Text>OC(CBFail)_Bay</Text>
+                    </LNode>
+                    <LNode ldInst="DCB242" prefix="Inh_" lnClass="RBRF" lnInst="1">
+                        <Text>OC(CBFail)_Bus</Text>
+                    </LNode>
+                </Function>
+            </Bay>
+            <Bay name="Bus_A" desc="Bus A" sxy:dir="horizontal" sxy:y="10">
+                <ConnectivityNode name="L1" pathName="XAT/V220/Bus_A/L1"/>
+                <Function name="Busbar_Protection">
+                    <LNode ldInst="BBProtection" prefix="BZ_" lnClass="PDIF" lnInst="1">
+                        <Text>BusA Dif</Text>
+                    </LNode>
+                </Function>
+            </Bay>
+            <Bay name="B270" desc="Bus Coupler DCB 278" sxy:dir="horizontal" sxy:x="10" sxy:y="10">
+                <ConductingEquipment name="DCB278B" type="DIS" sxy:dir="horizontal" sxy:x="0">
+                    <Terminal name="T1" connectivityNode="XAT/V220/Bus_A/L1" substationName="XAT" voltageLevelName="V220" bayName="Bus_A" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B270/L11" substationName="XAT" voltageLevelName="V220" bayName="B270" cNodeName="L11"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="DCB278" type="CBR" sxy:dir="horizontal" sxy:x="1">
+                    <LNode ldInst="DCB278" lnClass="XCBR" lnInst="1"/>
+                    <LNode ldInst="DCB278" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="DCB278" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V220/B270/L11" substationName="XAT" voltageLevelName="V220" bayName="B270" cNodeName="L11"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B270/L12" substationName="XAT" voltageLevelName="V220" bayName="B270" cNodeName="L12"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="ES2780" type="DIS" sxy:dir="horizontal" sxy:x="2" sxy:y="1">
+                    <LNode ldInst="ES2780" lnClass="XSWI" lnInst="1"/>
+                    <LNode ldInst="ES2780" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="ES2780" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V220/B270/L12" substationName="XAT" voltageLevelName="V220" bayName="B270" cNodeName="L12"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B270/grounded" substationName="XAT" voltageLevelName="V220" bayName="B270" cNodeName="grounded"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="CT278-1S" type="CTR" sxy:dir="horizontal" sxy:x="3">
+                    <Terminal name="T1" connectivityNode="XAT/V220/B270/L12" substationName="XAT" voltageLevelName="V220" bayName="B270" cNodeName="L12"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B270/L13" substationName="XAT" voltageLevelName="V220" bayName="B270" cNodeName="L13"/>
+                    <SubEquipment name="A" phase="A">
+                        <LNode ldInst="CT278" lnClass="TCTR" lnInst="1"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT278" lnClass="TCTR" lnInst="1"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="B" phase="B">
+                        <LNode ldInst="CT278" lnClass="TCTR" lnInst="2"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT278" lnClass="TCTR" lnInst="2"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="C" phase="C">
+                        <LNode ldInst="CT278" lnClass="TCTR" lnInst="3"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT278" lnClass="TCTR" lnInst="3"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="N" phase="N">
+                        <LNode ldInst="CT278" lnClass="TCTR" lnInst="4"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT278" lnClass="TCTR" lnInst="4"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                </ConductingEquipment>
+                <ConductingEquipment name="CT278-2S" type="CTR" sxy:dir="horizontal" sxy:x="4">
+                    <Terminal name="T1" connectivityNode="XAT/V220/B270/L13" substationName="XAT" voltageLevelName="V220" bayName="B270" cNodeName="L13"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B280/L12" substationName="XAT" voltageLevelName="V220" bayName="B280" cNodeName="L12"/>
+                    <SubEquipment name="A" phase="A">
+                        <LNode ldInst="CT278" lnClass="TCTR" lnInst="1"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT278" lnClass="TCTR" lnInst="1"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="B" phase="B">
+                        <LNode ldInst="CT278" lnClass="TCTR" lnInst="2"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT278" lnClass="TCTR" lnInst="2"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="C" phase="C">
+                        <LNode ldInst="CT278" lnClass="TCTR" lnInst="3"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT278" lnClass="TCTR" lnInst="3"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="N" phase="N">
+                        <LNode ldInst="CT278" lnClass="TCTR" lnInst="4"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT278" lnClass="TCTR" lnInst="4"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                </ConductingEquipment>
+                <ConnectivityNode name="grounded" pathName="XAT/V220/B270/grounded"/>
+                <ConnectivityNode name="L11" pathName="XAT/V220/B270/L11"/>
+                <ConnectivityNode name="L12" pathName="XAT/V220/B270/L12"/>
+                <ConnectivityNode name="L13" pathName="XAT/V220/B270/L13"/>
+                <Function name="CB_Fail">
+                    <LNode ldInst="DCB278" prefix="Inh_" lnClass="RBRF" lnInst="1">
+                        <Text>OC(CBFail)_Bus</Text>
+                    </LNode>
+                </Function>
+            </Bay>
+            <Bay name="B280" desc="Bus Coupler DCB 288" sxy:dir="horizontal" sxy:x="17" sxy:y="10">
+                <ConductingEquipment name="ES2880" type="DIS" sxy:dir="horizontal" sxy:x="0" sxy:y="1">
+                    <LNode ldInst="ES2880" lnClass="XSWI" lnInst="1"/>
+                    <LNode ldInst="ES2880" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="ES2880" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V220/B280/L12" substationName="XAT" voltageLevelName="V220" bayName="B280" cNodeName="L12"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B280/grounded" substationName="XAT" voltageLevelName="V220" bayName="B280" cNodeName="grounded"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="DCB288" type="CBR" sxy:dir="horizontal" sxy:x="1">
+                    <LNode ldInst="DCB288" lnClass="XCBR" lnInst="1"/>
+                    <LNode ldInst="DCB288" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="DCB288" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V220/B280/L12" substationName="XAT" voltageLevelName="V220" bayName="B280" cNodeName="L12"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B280/L11" substationName="XAT" voltageLevelName="V220" bayName="B280" cNodeName="L11"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="DCB288B" type="DIS" sxy:dir="horizontal" sxy:x="2">
+                    <Terminal name="T1" connectivityNode="XAT/V220/Bus_B/L1" substationName="XAT" voltageLevelName="V220" bayName="Bus_B" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B280/L11" substationName="XAT" voltageLevelName="V220" bayName="B280" cNodeName="L11"/>
+                </ConductingEquipment>
+                <ConnectivityNode name="grounded" pathName="XAT/V220/B280/grounded"/>
+                <ConnectivityNode name="L11" pathName="XAT/V220/B280/L11"/>
+                <ConnectivityNode name="L12" pathName="XAT/V220/B280/L12"/>
+                <Function name="CB_Fail">
+                    <LNode ldInst="DCB288" prefix="Inh_" lnClass="RBRF" lnInst="1">
+                        <Text>OC(CBFail)_Bus</Text>
+                    </LNode>
+                </Function>
+            </Bay>
+            <Bay name="Bus_B" desc="Bus B" sxy:dir="vertical" sxy:y="11">
+                <ConnectivityNode name="L1" pathName="XAT/V220/Bus_B/L1"/>
+                <Function name="Busbar_Protection">
+                    <LNode ldInst="BBProtection" prefix="BZ_" lnClass="PDIF" lnInst="1">
+                        <Text>BusB Dif</Text>
+                    </LNode>
+                </Function>
+            </Bay>
+            <Bay name="B290" desc="T2" sxy:dir="vertical" sxy:x="21">
+                <ConductingEquipment name="NCT3" type="CTR" sxy:dir="horizontal" sxy:x="-1" sxy:y="15">
+                    <Terminal name="T1" connectivityNode="XAT/V220/B290/L0" substationName="XAT" voltageLevelName="V220" bayName="B290" cNodeName="L0"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B290/grounded" substationName="XAT" voltageLevelName="V220" bayName="B290" cNodeName="grounded"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="ES299" type="DIS" sxy:dir="horizontal" sxy:x="1" sxy:y="15">
+                    <LNode ldInst="ES299" lnClass="XSWI" lnInst="1"/>
+                    <LNode ldInst="ES299" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="ES299" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V220/B290/L1" substationName="XAT" voltageLevelName="V220" bayName="B290" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B290/grounded" substationName="XAT" voltageLevelName="V220" bayName="B290" cNodeName="grounded"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="CT292" type="CTR" sxy:dir="vertical" sxy:y="15">
+                    <Terminal name="T1" connectivityNode="XAT/V220/B290/L1" substationName="XAT" voltageLevelName="V220" bayName="B290" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B290/L12" substationName="XAT" voltageLevelName="V220" bayName="B290" cNodeName="L12"/>
+                    <SubEquipment name="A" phase="A">
+                        <LNode ldInst="CT292" lnClass="TCTR" lnInst="1"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT292" lnClass="TCTR" lnInst="1"/>
+                                <LNode ldInst="Bay_CT292" lnClass="TCTR" lnInst="1"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="B" phase="B">
+                        <LNode ldInst="CT292" lnClass="TCTR" lnInst="2"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT292" lnClass="TCTR" lnInst="2"/>
+                                <LNode ldInst="Bay_CT292" lnClass="TCTR" lnInst="2"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="C" phase="C">
+                        <LNode ldInst="CT292" lnClass="TCTR" lnInst="3"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT292" lnClass="TCTR" lnInst="3"/>
+                                <LNode ldInst="Bay_CT292" lnClass="TCTR" lnInst="3"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="N" phase="N">
+                        <LNode ldInst="CT292" lnClass="TCTR" lnInst="4"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT292" lnClass="TCTR" lnInst="4"/>
+                                <LNode ldInst="Bay_CT292" lnClass="TCTR" lnInst="4"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                </ConductingEquipment>
+                <ConductingEquipment name="DCB292" type="CBR" sxy:dir="vertical" sxy:y="13">
+                    <LNode ldInst="DCB292" lnClass="XCBR" lnInst="1"/>
+                    <LNode ldInst="DCB292" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="DCB292" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V220/B290/L12" substationName="XAT" voltageLevelName="V220" bayName="B290" cNodeName="L12"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B290/L13" substationName="XAT" voltageLevelName="V220" bayName="B290" cNodeName="L13"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="DCB292B" type="DIS" sxy:dir="vertical" sxy:y="12">
+                    <Terminal name="T1" connectivityNode="XAT/V220/Bus_B/L1" substationName="XAT" voltageLevelName="V220" bayName="Bus_B" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B290/L13" substationName="XAT" voltageLevelName="V220" bayName="B290" cNodeName="L13"/>
+                </ConductingEquipment>
+                <ConnectivityNode name="grounded" pathName="XAT/V220/B290/grounded"/>
+                <ConnectivityNode name="L1" pathName="XAT/V220/B290/L1"/>
+                <ConnectivityNode name="L12" pathName="XAT/V220/B290/L12"/>
+                <ConnectivityNode name="L13" pathName="XAT/V220/B290/L13"/>
+                <Function name="CB_Fail">
+                    <LNode ldInst="DCB292" prefix="" lnClass="RBRF" lnInst="1">
+                        <Text>OC(CBFail)_Bay</Text>
+                    </LNode>
+                    <LNode ldInst="DCB292" prefix="Inh_" lnClass="RBRF" lnInst="1">
+                        <Text>OC(CBFail)_Bus</Text>
+                    </LNode>
+                </Function>
+            </Bay>
+            <Bay name="B300" desc="SOM-ERE-XAT 2" sxy:dir="vertical" sxy:x="21">
+                <ConductingEquipment name="SOM_ERE_XAT_2_Cct" desc="SOM-ERE-XAT 2" type="IFL" sxy:dir="vertical" sxy:y="4">
+                    <Terminal name="T1" connectivityNode="XAT/V220/B300/L1" substationName="XAT" voltageLevelName="V220" bayName="B300" cNodeName="L1"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="ES309" type="DIS" sxy:dir="horizontal" sxy:x="1" sxy:y="5">
+                    <LNode ldInst="ES309" lnClass="XSWI" lnInst="1"/>
+                    <LNode ldInst="ES309" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="ES309" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V220/B300/L1" substationName="XAT" voltageLevelName="V220" bayName="B300" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B300/grounded" substationName="XAT" voltageLevelName="V220" bayName="B300" cNodeName="grounded"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="CT302" type="CTR" sxy:dir="vertical" sxy:y="6">
+                    <Terminal name="T1" connectivityNode="XAT/V220/B300/L1" substationName="XAT" voltageLevelName="V220" bayName="B300" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B300/L12" substationName="XAT" voltageLevelName="V220" bayName="B300" cNodeName="L12"/>
+                    <SubEquipment name="A" phase="A">
+                        <LNode ldInst="CT302" lnClass="TCTR" lnInst="1"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT302" lnClass="TCTR" lnInst="1"/>
+                                <LNode ldInst="Bay_CT302" lnClass="TCTR" lnInst="1"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="B" phase="B">
+                        <LNode ldInst="CT302" lnClass="TCTR" lnInst="2"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT302" lnClass="TCTR" lnInst="2"/>
+                                <LNode ldInst="Bay_CT302" lnClass="TCTR" lnInst="2"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="C" phase="C">
+                        <LNode ldInst="CT302" lnClass="TCTR" lnInst="3"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT302" lnClass="TCTR" lnInst="3"/>
+                                <LNode ldInst="Bay_CT302" lnClass="TCTR" lnInst="3"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="N" phase="N">
+                        <LNode ldInst="CT302" lnClass="TCTR" lnInst="4"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bus_CT302" lnClass="TCTR" lnInst="4"/>
+                                <LNode ldInst="Bay_CT302" lnClass="TCTR" lnInst="4"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                </ConductingEquipment>
+                <ConductingEquipment name="DCB302" type="CBR" sxy:dir="vertical" sxy:y="8">
+                    <LNode ldInst="DCB302" lnClass="XCBR" lnInst="1"/>
+                    <LNode ldInst="DCB302" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="DCB302" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V220/B300/L12" substationName="XAT" voltageLevelName="V220" bayName="B300" cNodeName="L12"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B300/L13" substationName="XAT" voltageLevelName="V220" bayName="B300" cNodeName="L13"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="DCB302B" type="DIS" sxy:dir="vertical" sxy:y="9">
+                    <Terminal name="T1" connectivityNode="XAT/V220/Bus_B/L1" substationName="XAT" voltageLevelName="V220" bayName="Bus_B" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B300/L13" substationName="XAT" voltageLevelName="V220" bayName="B300" cNodeName="L13"/>
+                </ConductingEquipment>
+                <ConnectivityNode name="grounded" pathName="XAT/V220/B300/grounded"/>
+                <ConnectivityNode name="L1" pathName="XAT/V220/B300/L1"/>
+                <ConnectivityNode name="L12" pathName="XAT/V220/B300/L12"/>
+                <ConnectivityNode name="L13" pathName="XAT/V220/B300/L13"/>
+                <Function name="Line_Protection">
+                    <SubFunction name="Line Differential">
+                        <LNode ldInst="LDif" prefix="I_" lnClass="PDIF" lnInst="1">
+                            <Text>LDif</Text>
+                        </LNode>
+                    </SubFunction>
+                    <SubFunction name="Distance">
+                        <LNode ldInst="Dist" prefix="MHO_" lnClass="PDIS" lnInst="1">
+                            <Text>Dist_Zone_1_Mho</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="MHO_" lnClass="PDIS" lnInst="2">
+                            <Text>Dist_Zone_2_Mho</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="MHO_" lnClass="PDIS" lnInst="3">
+                            <Text>Dist_Zone_3_Mho</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="MHO_" lnClass="PDIS" lnInst="4">
+                            <Text>Dist_Zone_4_Mho</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="MHO_" lnClass="PDIS" lnInst="5">
+                            <Text>Dist_Zone_5_Mho</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="QUAD_" lnClass="PDIS" lnInst="1">
+                            <Text>Dist_Zone_1_Quad</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="QUAD_" lnClass="PDIS" lnInst="2">
+                            <Text>Dist_Zone_2_Quad</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="QUAD_" lnClass="PDIS" lnInst="3">
+                            <Text>Dist_Zone_3_Quad</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="QUAD_" lnClass="PDIS" lnInst="4">
+                            <Text>Dist_Zone_4_Quad</Text>
+                        </LNode>
+                        <LNode ldInst="Dist" prefix="QUAD_" lnClass="PDIS" lnInst="5">
+                            <Text>Dist_Zone_5_Quad</Text>
+                        </LNode>
+                    </SubFunction>
+                    <SubFunction name="Directional Earth Fault">
+                        <LNode ldInst="DEF" prefix="DND_" lnClass="PTOC" lnInst="1">
+                            <Text>DEF</Text>
+                        </LNode>
+                    </SubFunction>
+                    <SubFunction name="Negative Sequence">
+                        <LNode ldInst="NegSeq" prefix="DI2_" lnClass="PTOC" lnInst="1">
+                            <Text>NegSeq(Direc,DefT)</Text>
+                        </LNode>
+                    </SubFunction>
+                    <SubFunction name="Overcurrent">
+                        <LNode ldInst="OC" prefix="SOTF_" lnClass="PIOC" lnInst="1">
+                            <Text>OC(SOTF)</Text>
+                        </LNode>
+                    </SubFunction>
+                    <SubFunction name="Overvoltage">
+                        <LNode ldInst="OV" prefix="" lnClass="PTOV" lnInst="1">
+                            <Text>OV(DefT)</Text>
+                        </LNode>
+                        <LNode ldInst="OV" prefix="ResV_" lnClass="PTOV" lnInst="1">
+                            <Text>ResV(DefT)</Text>
+                        </LNode>
+                    </SubFunction>
+                    <SubFunction name="Intertrips">
+                        <LNode ldInst="ITrip" prefix="EXT_" lnClass="PSCH" lnInst="1">
+                            <Text>ITrip(Rec)</Text>
+                        </LNode>
+                    </SubFunction>
+                </Function>
+                <Function name="CB_Fail">
+                    <LNode ldInst="DCB302" prefix="" lnClass="RBRF" lnInst="1">
+                        <Text>OC(CBFail)_Bay</Text>
+                    </LNode>
+                    <LNode ldInst="DCB302" prefix="Inh_" lnClass="RBRF" lnInst="1">
+                        <Text>OC(CBFail)_Bus</Text>
+                    </LNode>
+                </Function>
+            </Bay>
+            <Bay name="B350" desc="CVT357" sxy:dir="vertical" sxy:x="22" sxy:y="0">
+                <ConductingEquipment name="CVT357" type="VTR" sxy:dir="horizontal" sxy:x="0" sxy:y="11">
+                    <Terminal name="T1" connectivityNode="XAT/V220/Bus_B/L1" substationName="XAT" voltageLevelName="V220" bayName="Bus_B" cNodeName="L1"/>
+                    <SubEquipment name="A" phase="A">
+                        <LNode ldInst="CVT357" lnClass="TVTR" lnInst="1"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_CVT357" lnClass="TVTR" lnInst="1"/>
+                                <LNode ldInst="Bus_CVT357" lnClass="TVTR" lnInst="1"/>
+                                <LNode ldInst="Line_CVT357" lnClass="TVTR" lnInst="1"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="B" phase="B">
+                        <LNode ldInst="CVT357" lnClass="TVTR" lnInst="2"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_CVT357" lnClass="TVTR" lnInst="2"/>
+                                <LNode ldInst="Bus_CVT357" lnClass="TVTR" lnInst="2"/>
+                                <LNode ldInst="Line_CVT357" lnClass="TVTR" lnInst="2"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="C" phase="C">
+                        <LNode ldInst="CVT357" lnClass="TVTR" lnInst="3"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_CVT357" lnClass="TVTR" lnInst="3"/>
+                                <LNode ldInst="Bus_CVT357" lnClass="TVTR" lnInst="3"/>
+                                <LNode ldInst="Line_CVT357" lnClass="TVTR" lnInst="3"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                </ConductingEquipment>
+                <ConductingEquipment name="ES350" type="DIS" sxy:dir="vertical" sxy:x="1" sxy:y="11">
+                    <LNode ldInst="ES350" lnClass="XSWI" lnInst="1"/>
+                    <LNode ldInst="ES350" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="ES350" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V220/Bus_B/L1" substationName="XAT" voltageLevelName="V220" bayName="Bus_B" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V220/B350/grounded" bayName="B350" cNodeName="grounded"/>
+                </ConductingEquipment>
+                <ConnectivityNode name="L1" pathName="XAT/V220/B350/grounded"/>
+            </Bay>
+        </VoltageLevel>
+        <VoltageLevel name="33kV" desc="33 kV" nomFreq="50" numPhases="3">
+            <Voltage unit="V" multiplier="k">33</Voltage>
+            <Bay name="B2200" desc="T1" sxy:dir="vertical" sxy:x="2">
+                <PowerTransformer name="ET1" type="PTR" sxy:dir="horizontal" sxy:x="-1" sxy:y="17">
+                    <TransformerWinding name="W1" type="PTW">
+                        <Terminal name="T1" connectivityNode="XAT/V33/B2200/L1" substationName="XAT" voltageLevelName="V33" bayName="B2200" cNodeName="L1"/>
+                        <NeutralPoint connectivityNode="XAT/V33/B2200/N" substationName="XAT" voltageLevelName="V33" bayName="B2200" cNodeName="N"/>
+                    </TransformerWinding>
+                    <TransformerWinding name="W2" type="PTW"/>
+                </PowerTransformer>
+                <ConductingEquipment name="NCT2" type="CTR" sxy:dir="horizontal" sxy:x="-2" sxy:y="17">
+                    <Terminal name="T1" connectivityNode="XAT/V33/B2200/N" substationName="XAT" voltageLevelName="V33" bayName="B2200" cNodeName="N"/>
+                    <Terminal name="T2" connectivityNode="XAT/V33/B2200/grounded" substationName="XAT" voltageLevelName="V33" bayName="B2200" cNodeName="grounded"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="DISVT2202" type="DIS" sxy:dir="vertical" sxy:x="1" sxy:y="18">
+                    <LNode ldInst="DISVT2202" lnClass="XSWI" lnInst="1"/>
+                    <LNode ldInst="DISVT2202" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="DISVT2202" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V33/B2200/L1" substationName="XAT" voltageLevelName="V33" bayName="B2200" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V33/B2200/LVT" substationName="XAT" voltageLevelName="V33" bayName="B2200" cNodeName="LVT"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="ESVT2202" type="DIS" sxy:dir="horizontal" sxy:x="2" sxy:y="19">
+                    <LNode ldInst="ESVT2202" lnClass="XSWI" lnInst="1"/>
+                    <LNode ldInst="ESVT2202" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="ESVT2202" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V33/B2200/LVT" substationName="XAT" voltageLevelName="V33" bayName="B2200" cNodeName="LVT"/>
+                    <Terminal name="T2" connectivityNode="XAT/V33/B2200/grounded" substationName="XAT" voltageLevelName="V33" bayName="B2200" cNodeName="grounded"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="VT2202" type="VTR" sxy:dir="vertical" sxy:x="2" sxy:y="18">
+                    <Terminal name="T1" connectivityNode="XAT/V33/B2200/LVT" substationName="XAT" voltageLevelName="V33" bayName="B2200" cNodeName="LVT"/>
+                    <SubEquipment name="A" phase="A">
+                        <LNode ldInst="VT2202" lnClass="TVTR" lnInst="1"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_VT2202" lnClass="TVTR" lnInst="1"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="B" phase="B">
+                        <LNode ldInst="VT2202" lnClass="TVTR" lnInst="2"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_VT2202" lnClass="TVTR" lnInst="2"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="C" phase="C">
+                        <LNode ldInst="VT2202" lnClass="TVTR" lnInst="3"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_VT2202" lnClass="TVTR" lnInst="3"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                </ConductingEquipment>
+                <ConductingEquipment name="CT2202" type="CTR" sxy:dir="vertical" sxy:y="19">
+                    <Terminal name="T1" connectivityNode="XAT/V33/B2200/L1" substationName="XAT" voltageLevelName="V33" bayName="B2200" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V33/B2200/L12" substationName="XAT" voltageLevelName="V33" bayName="B2200" cNodeName="L12"/>
+                    <SubEquipment name="A" phase="A">
+                        <LNode ldInst="CT2202" lnClass="TCTR" lnInst="1"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bay_CT2202" lnClass="TCTR" lnInst="1"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="B" phase="B">
+                        <LNode ldInst="CT2202" lnClass="TCTR" lnInst="2"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bay_CT2202" lnClass="TCTR" lnInst="2"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="C" phase="C">
+                        <LNode ldInst="CT2202" lnClass="TCTR" lnInst="3"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bay_CT2202" lnClass="TCTR" lnInst="3"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="N" phase="N">
+                        <LNode ldInst="CT2202" lnClass="TCTR" lnInst="4"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bay_CT2202" lnClass="TCTR" lnInst="4"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                </ConductingEquipment>
+                <ConductingEquipment name="CB2202" type="CBR" sxy:dir="vertical" sxy:y="20">
+                    <LNode ldInst="CB2202" lnClass="XCBR" lnInst="1"/>
+                    <LNode ldInst="CB2202" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="CB2202" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V33/B2200/L12" substationName="XAT" voltageLevelName="V33" bayName="B2200" cNodeName="L12"/>
+                    <Terminal name="T2" connectivityNode="XAT/V33/B2200/L13" substationName="XAT" voltageLevelName="V33" bayName="B2200" cNodeName="L13"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="ES2209" type="DIS" sxy:dir="horizontal" sxy:x="1" sxy:y="21">
+                    <LNode ldInst="ES2209" lnClass="XSWI" lnInst="1"/>
+                    <LNode ldInst="ES2209" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="ES2209" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V33/B2200/L13" substationName="XAT" voltageLevelName="V33" bayName="B2200" cNodeName="L13"/>
+                    <Terminal name="T2" connectivityNode="XAT/V33/B2200/grounded" substationName="XAT" voltageLevelName="V33" bayName="B2200" cNodeName="grounded"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="DIS2204" type="DIS" sxy:dir="vertical" sxy:y="22">
+                    <LNode ldInst="DIS2204" lnClass="XSWI" lnInst="1"/>
+                    <LNode ldInst="DIS2204" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="DIS2204" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V33/Bus_K/L1" substationName="XAT" voltageLevelName="V33" bayName="Bus_K" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V33/B2200/L13" substationName="XAT" voltageLevelName="V33" bayName="B2200" cNodeName="L13"/>
+                </ConductingEquipment>
+                <ConnectivityNode name="grounded" pathName="XAT/V33/B2200/grounded"/>
+                <ConnectivityNode name="N" pathName="XAT/V33/B2200/N"/>
+                <ConnectivityNode name="LVT" pathName="XAT/V33/B2200/LVT"/>
+                <ConnectivityNode name="L1" pathName="XAT/V33/B2200/L1"/>
+                <ConnectivityNode name="L12" pathName="XAT/V33/B2200/L12"/>
+                <ConnectivityNode name="L13" pathName="XAT/V33/B2200/L13"/>
+                <Function name="CB_Fail">
+                    <LNode ldInst="CB2202" prefix="" lnClass="RBRF" lnInst="1">
+                        <Text>OC(CBFail)_Bay</Text>
+                    </LNode>
+                    <LNode ldInst="CB2202" prefix="Inh_" lnClass="RBRF" lnInst="1">
+                        <Text>OC(CBFail)_Bus</Text>
+                    </LNode>
+                </Function>
+            </Bay>
+            <Bay name="B2210" desc="VT2217" sxy:dir="vertical" sxy:x="0" sxy:y="23">
+                <ConductingEquipment name="VT2217" type="VTR" sxy:dir="vertical" sxy:x="0" sxy:y="0">
+                    <Terminal name="T1" connectivityNode="XAT/V33/Bus_K/L1" substationName="XAT" voltageLevelName="V33" bayName="Bus_K" cNodeName="L1"/>
+                    <SubEquipment name="A" phase="A">
+                        <LNode ldInst="VT2217" lnClass="TVTR" lnInst="1"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_VT2217" lnClass="TVTR" lnInst="1"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="B" phase="B">
+                        <LNode ldInst="VT2217" lnClass="TVTR" lnInst="2"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_VT2217" lnClass="TVTR" lnInst="2"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="C" phase="C">
+                        <LNode ldInst="VT2217" lnClass="TVTR" lnInst="3"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_VT2217" lnClass="TVTR" lnInst="3"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                </ConductingEquipment>
+            </Bay>
+            <Bay name="Bus_K" desc="Bus K" sxy:dir="vertical" sxy:y="23">
+                <ConnectivityNode name="L1" pathName="XAT/V33/Bus_K/L1"/>
+            </Bay>
+            <Bay name="Bus_L" desc="Bus L" sxy:dir="vertical" sxy:y="24">
+                <ConnectivityNode name="L1" pathName="XAT/V33/Bus_L/L1"/>
+            </Bay>
+            <Bay name="B2100" desc="T2" sxy:dir="vertical" sxy:x="21">
+                <PowerTransformer name="ET2" type="PTR" sxy:dir="horizontal" sxy:x="-1" sxy:y="17">
+                    <TransformerWinding name="W1" type="PTW">
+                        <Terminal name="T1" connectivityNode="XAT/V33/B2100/L1" substationName="XAT" voltageLevelName="V33" bayName="B2100" cNodeName="L1"/>
+                        <NeutralPoint connectivityNode="XAT/V33/B2100/N" substationName="XAT" voltageLevelName="V33" bayName="B2100" cNodeName="N"/>
+                    </TransformerWinding>
+                    <TransformerWinding name="W2" type="PTW"/>
+                </PowerTransformer>
+                <ConductingEquipment name="NCT4" type="CTR" sxy:dir="horizontal" sxy:x="-2" sxy:y="17">
+                    <Terminal name="T1" connectivityNode="XAT/V33/B2100/N" substationName="XAT" voltageLevelName="V33" bayName="B2100" cNodeName="N"/>
+                    <Terminal name="T2" connectivityNode="XAT/V33/B2100/grounded" substationName="XAT" voltageLevelName="V33" bayName="B2100" cNodeName="grounded"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="DISVT2102" type="DIS" sxy:dir="vertical" sxy:x="1" sxy:y="18">
+                    <LNode ldInst="DISVT2102" lnClass="XSWI" lnInst="1"/>
+                    <LNode ldInst="DISVT2102" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="DISVT2102" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V33/B2100/L1" substationName="XAT" voltageLevelName="V33" bayName="B2100" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V33/B2100/LVT" substationName="XAT" voltageLevelName="V33" bayName="B2100" cNodeName="LVT"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="ESVT2102" type="DIS" sxy:dir="horizontal" sxy:x="2" sxy:y="19">
+                    <LNode ldInst="ESVT2102" lnClass="XSWI" lnInst="1"/>
+                    <LNode ldInst="ESVT2102" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="ESVT2102" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V33/B2100/LVT" substationName="XAT" voltageLevelName="V33" bayName="B2100" cNodeName="LVT"/>
+                    <Terminal name="T2" connectivityNode="XAT/V33/B2100/grounded" substationName="XAT" voltageLevelName="V33" bayName="B2100" cNodeName="grounded"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="VT2102" type="VTR" sxy:dir="vertical" sxy:x="2" sxy:y="18">
+                    <Terminal name="T1" connectivityNode="XAT/V33/B2100/LVT" substationName="XAT" voltageLevelName="V33" bayName="B2100" cNodeName="LVT"/>
+                    <SubEquipment name="A" phase="A">
+                        <LNode ldInst="VT2102" lnClass="TVTR" lnInst="1"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_VT2102" lnClass="TVTR" lnInst="1"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="B" phase="B">
+                        <LNode ldInst="VT2102" lnClass="TVTR" lnInst="2"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_VT2102" lnClass="TVTR" lnInst="2"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="C" phase="C">
+                        <LNode ldInst="VT2102" lnClass="TVTR" lnInst="3"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_VT2102" lnClass="TVTR" lnInst="3"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                </ConductingEquipment>
+                <ConductingEquipment name="CT2102" type="CTR" sxy:dir="vertical" sxy:y="19">
+                    <Terminal name="T1" connectivityNode="XAT/V33/B2100/L1" substationName="XAT" voltageLevelName="V33" bayName="B2100" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V33/B2100/L12" substationName="XAT" voltageLevelName="V33" bayName="B2100" cNodeName="L12"/>
+                    <SubEquipment name="A" phase="A">
+                        <LNode ldInst="CT2102" lnClass="TCTR" lnInst="1"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bay_CT2102" lnClass="TCTR" lnInst="1"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="B" phase="B">
+                        <LNode ldInst="CT2102" lnClass="TCTR" lnInst="2"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bay_CT2102" lnClass="TCTR" lnInst="2"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="C" phase="C">
+                        <LNode ldInst="CT2102" lnClass="TCTR" lnInst="3"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bay_CT2102" lnClass="TCTR" lnInst="3"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="N" phase="N">
+                        <LNode ldInst="CT2102" lnClass="TCTR" lnInst="4"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Bay_CT2102" lnClass="TCTR" lnInst="4"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                </ConductingEquipment>
+                <ConductingEquipment name="CB2102" type="CBR" sxy:dir="vertical" sxy:y="20">
+                    <LNode ldInst="CB2102" lnClass="XCBR" lnInst="1"/>
+                    <LNode ldInst="CB2102" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="CB2102" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V33/B2100/L12" substationName="XAT" voltageLevelName="V33" bayName="B2100" cNodeName="L12"/>
+                    <Terminal name="T2" connectivityNode="XAT/V33/B2100/L13" substationName="XAT" voltageLevelName="V33" bayName="B2100" cNodeName="L13"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="ES2109" type="DIS" sxy:dir="horizontal" sxy:x="1" sxy:y="21">
+                    <LNode ldInst="ES2109" lnClass="XSWI" lnInst="1"/>
+                    <LNode ldInst="ES2109" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="ES2109" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V33/B2100/L13" substationName="XAT" voltageLevelName="V33" bayName="B2100" cNodeName="L13"/>
+                    <Terminal name="T2" connectivityNode="XAT/V33/B2100/grounded" substationName="XAT" voltageLevelName="V33" bayName="B2100" cNodeName="grounded"/>
+                </ConductingEquipment>
+                <ConductingEquipment name="DIS2104" type="DIS" sxy:dir="vertical" sxy:y="22">
+                    <LNode ldInst="DIS2104" lnClass="XSWI" lnInst="1"/>
+                    <LNode ldInst="DIS2104" lnClass="CSWI" lnInst="1"/>
+                    <LNode ldInst="DIS2104" lnClass="CILO" lnInst="1"/>
+                    <Terminal name="T1" connectivityNode="XAT/V33/Bus_L/L1" substationName="XAT" voltageLevelName="V33" bayName="Bus_L" cNodeName="L1"/>
+                    <Terminal name="T2" connectivityNode="XAT/V33/B2100/L13" substationName="XAT" voltageLevelName="V33" bayName="B2100" cNodeName="L13"/>
+                </ConductingEquipment>
+                <ConnectivityNode name="grounded" pathName="XAT/V33/B2100/grounded"/>
+                <ConnectivityNode name="N" pathName="XAT/V33/B2100/N"/>
+                <ConnectivityNode name="LVT" pathName="XAT/V33/B2100/LVT"/>
+                <ConnectivityNode name="L1" pathName="XAT/V33/B2100/L1"/>
+                <ConnectivityNode name="L12" pathName="XAT/V33/B2100/L12"/>
+                <ConnectivityNode name="L13" pathName="XAT/V33/B2100/L13"/>
+                <Function name="CB_Fail">
+                    <LNode ldInst="CB2102" prefix="" lnClass="RBRF" lnInst="1">
+                        <Text>OC(CBFail)_Bay</Text>
+                    </LNode>
+                    <LNode ldInst="CB2102" prefix="Inh_" lnClass="RBRF" lnInst="1">
+                        <Text>OC(CBFail)_Bus</Text>
+                    </LNode>
+                </Function>
+            </Bay>
+            <Bay name="B2110" desc="VT2117" sxy:dir="vertical" sxy:x="23" sxy:y="23">
+                <ConductingEquipment name="VT2117" type="VTR" sxy:dir="vertical" sxy:x="0" sxy:y="0">
+                    <Terminal name="T1" connectivityNode="XAT/V33/Bus_L/L1" substationName="XAT" voltageLevelName="V33" bayName="Bus_L" cNodeName="L1"/>
+                    <SubEquipment name="A" phase="A">
+                        <LNode ldInst="VT2117" lnClass="TVTR" lnInst="1"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_VT2117" lnClass="TVTR" lnInst="1"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="B" phase="B">
+                        <LNode ldInst="VT2117" lnClass="TVTR" lnInst="2"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_VT2117" lnClass="TVTR" lnInst="2"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                    <SubEquipment name="C" phase="C">
+                        <LNode ldInst="VT2117" lnClass="TVTR" lnInst="3"/>
+                        <EqFunction name="Subscription">
+                            <EqSubFunction name="SMVSubscriber">
+                                <LNode ldInst="Tx_VT2117" lnClass="TVTR" lnInst="3"/>
+                            </EqSubFunction>
+                        </EqFunction>
+                    </SubEquipment>
+                </ConductingEquipment>
+            </Bay>
+        </VoltageLevel>
+    </Substation>
+</SCL>

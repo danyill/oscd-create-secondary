@@ -1,0 +1,23 @@
+= SLD Drawing Requirements
+
+This plugin places specific requirements on how SLDs are drawn to allow automatic identification of equipment.
+
+This is done to meet Transpower's in-house naming conventions.
+
+Current requirements are:
+
+* Only a single substation should be modelled in the SSD file. Only the first is used.
+
+* Power transformers must have a name beginning with `T` this allows them to be distinguished from earthing transformers which begin `ET`
+* Power transformers should be implemented as a bay per connected bus with all transformer equipment (power transformer, tapchanger, neutral CTs and neutral earthing) in a bay with the name of the power transformer.
+
+* Either overhead lines or underground cables (circuits) must terminate the SLD boundary using the `ConductingEquipment` type "Infeeding Line", where the name is the circuit name. Lines must be >= 50 kV.
+
+* Capacitor banks must have a name beginning with `T` this allows them to be distinguished from earthing transformers which begin `ET`. Capacitors must be >= 50 kV.
+
+* Buses must be named beginning with "Bus" and must be >= 50 kV.
+
+* VoltageLevels must have a Voltage element so that filtering can be done appropriately (this extension only deals with transmission voltage level equipment)
+
+
+

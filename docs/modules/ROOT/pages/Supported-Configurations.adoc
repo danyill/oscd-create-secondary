@@ -1,0 +1,63 @@
+= Automated Configuration Support
+
+This plugin will be incrementally improved to add automation to handle different primary configurations.
+
+Automation means that the plugin will be able to:
+
+* automatically identify protection arrangements which are legitimate within an SLD
+* correct allocation of LNodes against the primary SLD to associate functionality
+* instantiation of merging units and protection relays from template ICD files included in the Protection & Automation in the standard package
+* configuration and instantiation of SMV and GOOSE communications between associated IEDs
+
+All automation results require inspection of input parameters to confirm suitability.
+
+Currently the plugin always instantiates both Protection 1 and Protection 2 at the same time.
+
+== Line Protection
+
+WARNING: Not implemented yet
+
+* Single bay with line VT
+
+== Transformer Protection
+
+* Two-winding transformer 
+
+== Reactor Protection
+
+WARNING: Not implemented yet
+
+== Capacitor Protection
+
+WARNING: Not implemented yet
+
+== Planned Configurations
+
+=== Line Protection
+
+* Single bay with bus VT (and backup bus VT)
+* Breaker and a half arrangements
+* Breaker and a half (with bus VTs)
+* Double breaker 
+* Selectable Bus
+
+=== Transformer Protection
+
+* Dual incomer 
+* Auto-transformer for "Interconnecting transformer"
+* Three-winding transformer (?)
+
+=== Reactor Protection
+
+WARNING: Not implemented yet
+
+* A capacitor element must not be included within a reactor bay for it to be detected successfully (this is how the tool distinguishes standalone reactors and those associated with capacitor banks).
+
+=== Capacitor Protection
+
+WARNING: Not implemented yet
+
+* H banks constituent sections should be modelled as 3-phase SubEquipment with four separate capacitor banks with the names `TL` (top-left), `TR` (top-right), `BL` (bottom-left) and `BR` (bottom-right) as shown on the SLD or R&I diagram.
+// TODO: Prototype this
+* DStarNE banks should be implemented as two single-phase, wye-connected banks with a neutral CT connected between them.
+// TODO: Prototype this
