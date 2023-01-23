@@ -15,7 +15,7 @@ import '@material/dialog';
 import '@material/mwc-button';
 import '@material/mwc-list/mwc-check-list-item';
 import type { Dialog } from '@material/mwc-dialog';
-import type { MWCListIndex } from '@material/mwc-list';
+import type { ActionDetail, List, MWCListIndex } from '@material/mwc-list';
 import { CheckListItem } from '@material/mwc-list/mwc-check-list-item';
 import { ListItem } from '@material/mwc-list/mwc-list-item.js';
 
@@ -31,19 +31,19 @@ import { identity } from './foundation/identities/identity.js';
 
 import { dfs, getDfsEdges, dfsResult } from './foundation/graph/dfs.js';
 
-function hi<G, E, V>(
-  accumulator: NodeIdentifier[],
-  g: Graph<G, E, V>
-): boolean {
-  if (accumulator.length > 1) {
-    const lastTwo = accumulator.slice(-2);
-    const theEdge = g.edge(lastTwo[0], lastTwo[1]);
-    if (theEdge && (<string>theEdge).includes('CT')) {
-      return true;
-    }
-  }
-  return false;
-}
+// function hi<G, E, V>(
+//   accumulator: NodeIdentifier[],
+//   g: Graph<G, E, V>
+// ): boolean {
+//   if (accumulator.length > 1) {
+//     const lastTwo = accumulator.slice(-2);
+//     const theEdge = g.edge(lastTwo[0], lastTwo[1]);
+//     if (theEdge && (<string>theEdge).includes('CT')) {
+//       return true;
+//     }
+//   }
+//   return false;
+// }
 
 /**
  * TODO: Refactor more generally? Helinks does a weird thing for bus detection too.
@@ -323,19 +323,28 @@ export default class CreateSecondaryPlugin extends LitElement {
 
   @query('.dialog-select-primary') dialogSelectPrimary!: Dialog;
 
+  @query('.dialog-select-options-transformer')
+  dialogSelectTransformerOptions!: Dialog;
+
   @query('.dialog-select-equipment-connections')
   dialogSelectEquipmentConnections!: Dialog;
 
-  @query('oscd-filtered-list') filteredList!: OscdFilteredList;
+  @query('.dialog-select-primary mwc-list') filteredList!: List;
 
   @property({ attribute: false })
   selectedEquipment: MWCListIndex | [] = [];
+
+  @property({ attribute: false })
+  itemsToConfigure = [];
 
   // @query('.dataSetList')
   // dataSetList: List | undefined;
 
   @queryAll('.create-secondary-system-item')
   createSecondaryItems!: NodeListOf<ListItem>;
+
+  @queryAll('.create-transformer-options')
+  createTransformerOptionItems!: NodeListOf<ListItem>;
 
   // minimum voltage for selecting digital substation equipment
   MIN_VOLTAGE = 50000;
@@ -347,6 +356,12 @@ export default class CreateSecondaryPlugin extends LitElement {
     this.createSecondaryItems.forEach((item: CheckListItem | ListItem) => {
       if (item.disabled !== true) item.selected = true;
     });
+
+    this.createTransformerOptionItems.forEach(
+      (item: CheckListItem | ListItem) => {
+        if (item.disabled !== true) item.selected = true;
+      }
+    );
   }
 
   async docUpdate(): Promise<void> {
@@ -359,7 +374,7 @@ export default class CreateSecondaryPlugin extends LitElement {
     this.parentElement?.setAttribute('style', 'opacity: 1');
 
     this.filteredList?.addEventListener('selected', () => {
-      this.selectedEquipment = this.filteredList!.index;
+      this.selectedEquipment = this.filteredList.index;
       console.log(this.selectedEquipment);
     });
   }
@@ -396,7 +411,7 @@ export default class CreateSecondaryPlugin extends LitElement {
     filter: (element: Element) => boolean = () => true,
     disabler: (element: Element) => boolean = () => false
   ): TemplateResult {
-    return html` <mwc-list-item
+    return html`<mwc-list-item
         noninteractive
         graphic="icon"
         ?disabled=${disabled}
@@ -420,6 +435,7 @@ export default class CreateSecondaryPlugin extends LitElement {
               .twoline=${disabler(pe)}
               ?selected=${!disabler(pe)}
               ?disabled=${disabler(pe)}
+              data-identity=${identity(pe)}
               value="${searchStringDefault} ${identity(pe)}"
             >
               <span>${pe.getAttribute('name')}</span>
@@ -437,8 +453,10 @@ export default class CreateSecondaryPlugin extends LitElement {
         class="dialog-select-primary"
         heading="${msg('Create Secondary')}"
       >
-        <span>Select Primary Equipment</span>
-        <oscd-filtered-list hasSlot multi>
+        <p>
+          Select primary equipment to configure.
+        </p>
+        <mwc-list hasSlot multi>
           ${this.getPrimaryEquipment(
             'Transformers',
             ':root > Substation PowerTransformer',
@@ -482,7 +500,7 @@ export default class CreateSecondaryPlugin extends LitElement {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             (_bay: Element) => true
           )}
-        </oscd-filtered-list>
+        </mwc-list>
         <mwc-button
           class="close-button"
           dialogAction="close"
@@ -494,9 +512,9 @@ export default class CreateSecondaryPlugin extends LitElement {
           slot="primaryAction"
           icon="chevron_right"
           @click="${() => {
-            console.log(this.selectedEquipment);
+            console.log(this.filteredList.index);
             this.dialogSelectPrimary.close();
-            this.dialogSelectEquipmentConnections.show();
+            this.dialogSelectTransformerOptions.show();
           }}"
           ?disabled=${false}
         ></mwc-button>
@@ -507,12 +525,76 @@ export default class CreateSecondaryPlugin extends LitElement {
       !this.selectedDatasetItems.length) -->
       </mwc-dialog>
       <mwc-dialog
+        class="dialog-select-options-transformer"
+        heading="Select Options for Transformer"
+      >
+        <span>The following are done in a separate plugins:
+          <ul>
+            <li>GOOSE for voltage regulation schemes</li>
+            <li>CBFail for transformer and bus protection</li>
+          </ul>
+        </span>
+        <mwc-list multi>
+          <mwc-check-list-item class="create-transformer-options" selected>
+            <span>Prot1 Merging Units</span>
+          </mwc-check-list-item>
+          <mwc-check-list-item class="create-transformer-options" selected>
+            <span>Prot1 - SEL-487E-5</span>
+          </mwc-check-list-item>
+          <mwc-check-list-item class="create-transformer-options" selected>
+            <span>Prot2 Merging Units</span>
+          </mwc-check-list-item>
+          <mwc-check-list-item class="create-transformer-options" selected>
+            <span>Prot2 - Siemens 7UT85</span>
+          </mwc-check-list-item>
+          <mwc-check-list-item class="create-transformer-options" selected>
+            <span>WTI 1 - SEL-2414</span>
+          </mwc-check-list-item>
+          <mwc-check-list-item class="create-transformer-options" selected>
+            <span>WTI 2 - SEL-2414</span>
+          </mwc-check-list-item>
+        </mwc-list>
+        <mwc-button
+          class="close-button"
+          dialogAction="close"
+          label="${msg('close')}"
+          slot="secondaryAction"
+        ></mwc-button>
+        <!-- <mwc-button
+          label="Skip Plant Item"
+          slot="primaryAction"
+          icon="skip_next"
+          @click="${() => {
+            console.log(this.selectedEquipment);
+            this.dialogSelectEquipmentConnections.close();
+          }}"
+          ?disabled=${false}
+        ></mwc-button> -->
+        <mwc-button
+          label="Continue"
+          slot="primaryAction"
+          icon="chevron_right"
+          @click="${() => {
+            // this.itemsToConfigure = Array.from(this.filteredList!.selected?).map(<Element>item => item.getAttribute('data-identity'))
+            console.log(this.selectedEquipment);
+            this.dialogSelectTransformerOptions.close();
+            this.dialogSelectEquipmentConnections.show();
+          }}"
+          ?disabled=${false}
+        ></mwc-button>
+      </mwc-dialog>
+      <mwc-dialog
         class="dialog-select-equipment-connections"
         heading="${msg('Create {Protx} Secondary')} for Transformer {x}"
       >
         <span
-          >Select primary for this transformer. LNodes will be created, an ICD
-          instantiated and communications configured.</span
+          >Validate/select primary connections for this transformer. Next:
+          <ul>
+            <li>LNodes will be created in the SLD</li>
+            <li>an ICD instantiated for Prot and MUs</li>
+            <li>bay level GOOSE and SV configured</li>
+            <li>but not bus zone / CBFail</li>
+          </ul></span
         >
         <mwc-list>
           <mwc-list-item
@@ -545,6 +627,22 @@ export default class CreateSecondaryPlugin extends LitElement {
               <mwc-icon class="entry-edit-button" slot="meta">edit</mwc-icon>
             </mwc-list-item>`;
           })}
+        <mwc-list-item
+            noninteractive
+            graphic="icon"
+            class="equipment-type-heading"
+          >
+            <mwc-icon slot="graphic">developer_board</mwc-icon>
+            <span>Outside Bay Interconnections</span>
+          </mwc-list-item>
+          <li divider padded role="separator"></li>
+          ${['Alternate HV Bus VT', 'LV Bus VT'].map(entry => {
+            return html`<mwc-list-item hasMeta>
+              <span>${entry}</span>
+              <mwc-icon class="entry-edit-button" slot="meta">edit</mwc-icon>
+            </mwc-list-item>`;
+          })}
+         </mwc-list>
         </mwc-list>
         <mwc-button
           class="close-button"
@@ -552,11 +650,22 @@ export default class CreateSecondaryPlugin extends LitElement {
           label="${msg('close')}"
           slot="secondaryAction"
         ></mwc-button>
+        <!-- <mwc-button
+          label="Skip Plant Item"
+          slot="primaryAction"
+          icon="skip_next"
+          @click="${() => {
+            console.log(this.selectedEquipment);
+            this.dialogSelectEquipmentConnections.close();
+          }}"
+          ?disabled=${false}
+        ></mwc-button> -->
         <mwc-button
           label="Continue"
           slot="primaryAction"
           icon="chevron_right"
           @click="${() => {
+            // this.itemsToConfigure = Array.from(this.filteredList!.selected?).map(<Element>item => item.getAttribute('data-identity'))
             console.log(this.selectedEquipment);
             this.dialogSelectEquipmentConnections.close();
           }}"
